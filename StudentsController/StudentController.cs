@@ -46,7 +46,7 @@ namespace StudentsController {
 
 
             reader.Close();
-            SqlConnection.Close();
+           
 
             return student;
         }
@@ -80,7 +80,7 @@ namespace StudentsController {
             }
 
             reader.Close();
-            SqlConnection.Close();
+           
 
             return students;
         }

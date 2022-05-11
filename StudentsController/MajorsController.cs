@@ -30,7 +30,6 @@ namespace StudentsController {
             }
 
             reader.Close();
-            SqlConnection.Close();
 
             return majors;
         }

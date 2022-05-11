@@ -1,11 +1,30 @@
 ﻿using StudentsController;
 
-var studctrl = new StudentController("localhost\\sqlexpress", "EdDb");
+const string server = "localhost\\sqlexpress";
+const string database = "EdDB";
+
+var studctrl = new StudentController(server, database);
 studctrl.OpenConnection();
-var majctrl = new MajorsController("localhost\\sqlexpress", "EdDb");
+var majctrl = new MajorsController(server, database);
 majctrl.OpenConnection();
 
 var majors = majctrl.GetAllMajors();
+var students = studctrl.GetAllStudents();
+
+var studentsMajors = from s in students
+                     join m in majors
+                       on s.MajorId equals m.Id
+                     where s.StateCode == "OH"
+                     orderby s.Lastname descending
+                     select new {
+                         Fullname = s.Firstname + " " + s.Lastname, 
+                         Major = m.Description
+                     };
+
+foreach(var sm in studentsMajors) {
+    Console.WriteLine($"{sm.Fullname} | {sm.Major}");
+}
+
 
 //var student = studctrl.GetStudentByPk(3);
 
